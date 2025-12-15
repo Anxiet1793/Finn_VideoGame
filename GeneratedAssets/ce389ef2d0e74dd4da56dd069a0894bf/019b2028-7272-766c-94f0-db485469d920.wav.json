@@ -1,0 +1,13 @@
+{
+    "asset": "ce389ef2d0e74dd4da56dd069a0894bf",
+    "fileName": "019b2028-7272-766c-94f0-db485469d920.wav",
+    "prompt": "Música de menú para videojuegos, ambientado en el mundo de hora de aventura. dale un tono de rock estilo metal. ya que esta ambientado en el infierno de hora de aventura ",
+    "negativePrompt": "",
+    "model": "6ab5371b-d771-4e55-b856-fb0296eaf50c",
+    "modelName": "Beatoven Music Generation",
+    "customSeed": -1,
+    "w3CTraceId": "54433ef2be1484d9a5d293a91a5b53cf",
+    "duration": 10.0,
+    "autoTrim": false,
+    "hasReference": false
+}

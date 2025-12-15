@@ -1,0 +1,13 @@
+{
+    "asset": "ce389ef2d0e74dd4da56dd069a0894bf",
+    "fileName": "019b2026-824e-76f9-b591-1b380cdede03.wav",
+    "prompt": "Música de menú para videojuegos, ambientado en el mundo de hora de aventura ",
+    "negativePrompt": "",
+    "model": "6ab5371b-d771-4e55-b856-fb0296eaf50c",
+    "modelName": "Beatoven Music Generation",
+    "customSeed": -1,
+    "w3CTraceId": "11c2e8ecf28ae59d43f789666e187e86",
+    "duration": 10.0,
+    "autoTrim": false,
+    "hasReference": false
+}
