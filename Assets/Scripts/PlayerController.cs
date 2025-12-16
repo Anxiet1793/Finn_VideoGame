@@ -4,14 +4,12 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    // velocidad del jugador
     public float velocidad = 5f;
-    public int vida = 3;    
+    public int vida = 3;
 
-    // mecanica de salto
     public float fuerzaSalto = 10f;
     public float fuerzaRebote = 6f;
-    public float longitudRaycast = 0.1f; // identifica cuando el personaje esta tocando el suelo
+    public float longitudRaycast = 0.1f;
     public LayerMask capaSuelo;
 
     private bool enSuelo;
@@ -20,16 +18,13 @@ public class PlayerController : MonoBehaviour
     public bool muerto;
 
     private Rigidbody2D rb;
-
     public Animator animator;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!muerto)
@@ -39,7 +34,7 @@ public class PlayerController : MonoBehaviour
                 Movimiento();
 
                 RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, longitudRaycast, capaSuelo);
-                enSuelo = hit.collider != null; // verdadero o falso si el personaje esta en el suelo
+                enSuelo = hit.collider != null;
 
                 if (enSuelo && Input.GetKeyDown(KeyCode.Space) && !recibiendoDanio)
                 {
@@ -56,7 +51,7 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("ensuelo", enSuelo);
         animator.SetBool("Atacando", atacando);
         animator.SetBool("recibeDanio", recibiendoDanio);
-        animator.SetBool("muerto", muerto); 
+        animator.SetBool("muerto", muerto);
     }
 
     public void Movimiento()
@@ -65,48 +60,59 @@ public class PlayerController : MonoBehaviour
 
         animator.SetFloat("movement", velocidadX);
 
-        if (velocidadX < 0)
-        {
-            transform.localScale = new Vector3(-1, 1, 1);
-        }
-        if (velocidadX > 0)
-        {
-            transform.localScale = new Vector3(1, 1, 1);
-        }
+        if (velocidadX < 0) transform.localScale = new Vector3(-1, 1, 1);
+        if (velocidadX > 0) transform.localScale = new Vector3(1, 1, 1);
 
-        Vector3 posicion = transform.position;
-        
         if (!recibiendoDanio)
         {
-            transform.position = new Vector3(velocidadX + posicion.x, posicion.y, posicion.z);
+            Vector3 pos = transform.position;
+            transform.position = new Vector3(velocidadX + pos.x, pos.y, pos.z);
         }
     }
+
     public void RecibeDanio(Vector2 direccion, int cantDanio)
     {
-        if (!recibiendoDanio)
+        if (recibiendoDanio || muerto) return;
+
+        recibiendoDanio = true;
+        vida -= cantDanio;
+
+        if (vida <= 0)
         {
-            recibiendoDanio = true;
-            vida -= cantDanio;
-            if (vida <= 0)
-            {
-                muerto = true;
-            } else
-            {
-                Vector2 rebote = new Vector2(transform.position.x - direccion.x, 1).normalized;
-                rb.AddForce(rebote * fuerzaRebote, ForceMode2D.Impulse);
-            }
+            vida = 0;
+            Die();
+            return;
         }
+
+        Vector2 rebote = new Vector2(transform.position.x - direccion.x, 1).normalized;
+        rb.AddForce(rebote * fuerzaRebote, ForceMode2D.Impulse);
+    }
+
+    private void Die()
+    {
+        muerto = true;
+        recibiendoDanio = false;
+        atacando = false;
+
+        rb.linearVelocity = Vector2.zero;
+
+        // Si quieres que no empuje más:
+        // var col = GetComponent<Collider2D>();
+        // if (col != null) col.enabled = false;
+
+        if (GameManager.Instance != null)
+            GameManager.Instance.TriggerGameOver();
     }
 
     public void DesactivaDanio()
     {
         recibiendoDanio = false;
-        rb.linearVelocity = Vector2.zero;
+        rb.linearVelocity = Vector2.zero; // <- corregido
     }
 
     public void Atacando()
     {
-        atacando = true;  
+        atacando = true;
     }
 
     public void DesactivaAtaque()
