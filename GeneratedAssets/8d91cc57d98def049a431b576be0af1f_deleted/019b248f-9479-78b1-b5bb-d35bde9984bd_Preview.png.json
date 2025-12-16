@@ -1,0 +1,11 @@
+{
+    "asset": "8d91cc57d98def049a431b576be0af1f",
+    "fileName": "019b248f-9479-78b1-b5bb-d35bde9984bd_Preview.png",
+    "prompt": "fondo con estilo de plataformeo 2d, para un tutorial, tomando de referencia el diseño que se te entrega, siendo ambientado en el inferno con un estilo de dibujo como el de hora de aventura, con algo de pixel art \n",
+    "negativePrompt": "",
+    "model": "44ec3749-963a-44b1-aa54-dc19f6ed8ab2",
+    "modelName": "Unity Texture2D",
+    "customSeed": 2067075052,
+    "w3CTraceId": "44e0c1448f3ffe712fd2201849f83092",
+    "refinementMode": "Generation"
+}
