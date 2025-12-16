@@ -9,7 +9,7 @@ public class EnemyController : MonoBehaviour
     public float detectionRadius = 5.0f;
     public float speed = 2.0f;
     public float fuerzaRebote = 6f;
-    public int vida = 3;    
+    public int vida = 3;
 
     private Rigidbody2D rb;
     private Vector2 movement;
@@ -24,7 +24,7 @@ public class EnemyController : MonoBehaviour
     {
         playerVivo = true;
         rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();    
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -76,7 +76,7 @@ public class EnemyController : MonoBehaviour
         {
             Vector2 direccionDanio = new Vector2(transform.position.x, 0);
             PlayerController playerScript = collision.gameObject.GetComponent<PlayerController>();
-            
+
             playerScript.RecibeDanio(direccionDanio, 1);
             playerVivo = !playerScript.muerto;
 
@@ -89,7 +89,7 @@ public class EnemyController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Espada"))
+        if (collision.CompareTag("Espada"))
         {
             Vector2 direccionDanio = new Vector2(collision.gameObject.transform.position.x, 0);
             RecibeDanio(direccionDanio, 1);
@@ -106,24 +106,25 @@ public class EnemyController : MonoBehaviour
             {
                 muerto = true;
                 enMovimiento = false;
-
-            } else
+            }
+            else
             {
-                Vector2 rebote = new Vector2(transform.position.x - direccion.x, 1).normalized;
+                Vector2 rebote = new Vector2(transform.position.x - direccion.x, 0.2f).normalized;
                 rb.AddForce(rebote * fuerzaRebote, ForceMode2D.Impulse);
             }
 
         }
+
     }
 
-    public void EliminarCuerpo()
+    public void EliminarEnemigo()
     {
-        Destroy(gameObject);
+        Destroy(obj: gameObject);
     }
 
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, detectionRadius); 
+        Gizmos.DrawWireSphere(transform.position, detectionRadius);
     }
 }
