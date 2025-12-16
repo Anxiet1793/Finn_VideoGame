@@ -1462,7 +1462,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   velocidad: 5
   vida: 3
-  fuerzaSalto: 10
+  fuerzaSalto: 15
   fuerzaRebote: 6
   longitudRaycast: 0.55
   capaSuelo:
