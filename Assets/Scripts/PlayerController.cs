@@ -89,20 +89,18 @@ public class PlayerController : MonoBehaviour
     }
 
     private void Die()
-    {
-        muerto = true;
-        recibiendoDanio = false;
-        atacando = false;
+{
+    muerto = true;
+    recibiendoDanio = false;
+    atacando = false;
+    Debug.Log("PLAYER MURIO -> llamando GameOver");
 
-        rb.linearVelocity = Vector2.zero;
+    rb.linearVelocity = Vector2.zero;
 
-        // Si quieres que no empuje más:
-        // var col = GetComponent<Collider2D>();
-        // if (col != null) col.enabled = false;
+    if (GameManager.Instance != null)
+        GameManager.Instance.TriggerGameOver();
+}
 
-        if (GameManager.Instance != null)
-            GameManager.Instance.TriggerGameOver();
-    }
 
     public void DesactivaDanio()
     {

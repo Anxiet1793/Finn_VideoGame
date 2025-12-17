@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameOverUI gameOverUI;
 
     [Header("Flow")]
-    [SerializeField] private string mainMenuSceneName = "MainMenu";
+    [SerializeField] private string mainMenuSceneName = "Menu";
     [SerializeField] private bool freezeTimeOnGameOver = true;
 
     private bool isGameOver;
@@ -49,18 +49,14 @@ public class GameManager : MonoBehaviour
     }
 
     public void TriggerGameOver()
-    {
-        if (isGameOver) return;
-        isGameOver = true;
+{
+    // Asegura que el juego no quede congelado
+    Time.timeScale = 1f;
 
-        if (freezeTimeOnGameOver) Time.timeScale = 0f;
+    // Carga menú directo
+    GoToMainMenu();
+}
 
-        if (gameOverUI == null)
-            gameOverUI = FindObjectOfType<GameOverUI>(true);
-
-        if (gameOverUI != null) gameOverUI.Show();
-        else Debug.LogWarning("GameManager: No encontré GameOverUI en la escena.");
-    }
 
     public void RestartScene()
     {

@@ -2,28 +2,16 @@ using UnityEngine;
 
 public class GameOverUI : MonoBehaviour
 {
-    [SerializeField] private GameObject root; // Panel/Canvas principal del GameOver
-
-    private void Awake()
-    {
-        if (root == null) root = gameObject;
-    }
-
     public void Show()
     {
-        if (root != null) root.SetActive(true);
+        gameObject.SetActive(true);
     }
 
     public void Hide()
     {
-        if (root != null) root.SetActive(false);
+        gameObject.SetActive(false);
     }
-    private void Start()
-{
-    Hide();
-}
 
-    // Estos 3 se asignan directo a botones (OnClick)
     public void OnRestartPressed()
     {
         if (GameManager.Instance != null) GameManager.Instance.RestartScene();
